@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+float validaQuantidade(int qPecas) {
+    if (qPecas <= 50) {
+        return 0;
+    } else if (qPecas <= 80) {
+        return 0.5 * (qPecas - 50);
+    } else {
+        return 0.5 * 30 + 0.75 * (qPecas - 80);
+    }
+}
+
+float calculaSalario(int qPecas) {
+    return 600 + validaQuantidade(qPecas);
+}
+
+void mostraFinal(float salario) {
+    printf("Salario: R$ %.2f\n\n", salario);
+}
+
+int main() {
+  
+    int qPecas;
+
+    do {
+        printf("Digite a quantidade de pecas fabricadas (ou -1 para sair): ");
+        scanf("%d", &qPecas);
+
+        if (qPecas != -1) {
+            float salario = calculaSalario(qPecas);
+            mostraFinal(salario);
+        }
+    } while (qPecas != -1);
+
+    return 0;
+}
