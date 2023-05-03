@@ -1,0 +1,84 @@
+#include <stdio.h>
+
+#define MIN_TIMES 3
+#define MAX_TIMES 9
+#define MIN_JOGADORES 6
+#define MAX_JOGADORES 11
+#define IDADE_MINIMA 18
+#define PESO_MAXIMO 200
+
+int main() {
+    int n_times, n_jogadores, idade, peso, i, j;
+    float media_idades, media_peso;
+    int qtd_menores, qtd_peso_maximo;
+    float perc_peso_maximo;
+
+    printf("Quantos times são ? (entre %d e %d): ", MIN_TIMES, MAX_TIMES);
+    scanf("%d", &n_times);
+
+    while (n_times < MIN_TIMES || n_times > MAX_TIMES) {
+        printf("Quantidade invalida, digite novamente: ");
+        scanf("%d", &n_times);
+    }
+
+    for (i = 1; i <= n_times; i++) {
+        printf("\nTime %d:\n", i);
+
+        printf("Quantos jogadores serao inscritos? (entre %d e %d): ", MIN_JOGADORES, MAX_JOGADORES);
+        scanf("%d", &n_jogadores);
+
+        while (n_jogadores < MIN_JOGADORES || n_jogadores > MAX_JOGADORES) {
+            printf("Quantidade invalida, digite novamente: ");
+            scanf("%d", &n_jogadores);
+        }
+
+        float soma_idades = 0;
+        float soma_peso = 0;
+        int qtd_peso_acima_25 = 0;
+
+        for (j = 1; j <= n_jogadores; j++) {
+            printf("\nJogador %d:\n", j);
+
+            printf("Digite a idade: ");
+            scanf("%d", &idade);
+
+            printf("Digite o peso: ");
+            scanf("%d", &peso);
+
+            soma_idades += idade;
+
+            if (idade < IDADE_MINIMA) {
+                qtd_menores++;
+            }
+
+            if (idade > 25) {
+                soma_peso += peso;
+                qtd_peso_acima_25++;
+
+                if (peso > PESO_MAXIMO) {
+                    qtd_peso_maximo++;
+                }
+            }
+        }
+
+        media_idades = soma_idades / n_jogadores;
+
+        if (qtd_peso_acima_25 > 0) {
+            media_peso = soma_peso / qtd_peso_acima_25;
+        } else {
+            media_peso = 0;
+        }
+
+        printf("\nMédia das idades dos jogadores do time %d: %.1f\n", i, media_idades);
+        printf("Média do peso dos jogadores acima de 25 anos do time %d: %.1f\n", i, media_peso);
+    }
+
+    printf("\nResumo geral:\n");
+
+    printf("Quantidade de jogadores menores de idade: %d\n", qtd_menores);
+
+   
+    printf("Quantidade e porcentagem de jogadores com mais de %d QUILOS: %d (%.1f)\n", PESO_MAXIMO, qtd_peso_maximo, perc_peso_maximo);
+
+    return 0;
+}
